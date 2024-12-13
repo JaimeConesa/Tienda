@@ -29,7 +29,7 @@ foreach ($usuarios as $usuario) {
     }
 }
 
-// Si no se encuentran las credenciales correctas, devolver un error 401
+// Si no se encuentran las credenciales correctas, devolver un error 401 pepe
 if (!$usuarioValido) {
     http_response_code(401);
     echo json_encode(["error" => "Credenciales inválidas"]);
