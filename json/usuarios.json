@@ -1,0 +1,14 @@
+[
+    {
+        "nombre": "usuario1",
+        "contrasena": "password123"
+    },
+    {
+        "nombre": "admin",
+        "contrasena": "securePass456"
+    },
+    {
+        "nombre": "usuario3",
+        "contrasena": "mySecret789"
+    }
+]
