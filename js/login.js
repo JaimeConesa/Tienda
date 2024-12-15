@@ -15,7 +15,7 @@ form.addEventListener('submit', async (event) => {
 
     // Enviar los datos a la API RESTful
     try {
-        const response = await fetch('../php/procesar.php', {
+        const response = await fetch('Tienda/php/procesar.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
