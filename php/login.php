@@ -5,7 +5,13 @@ header("Content-Type: application/json");
 $data = json_decode(file_get_contents("php://input"), true);
 
 // Leer los usuarios desde el archivo JSON
-$usuarios = json_decode(file_get_contents("json/usuarios.json"), true);
+$usuariosPath = __DIR__ . '/../json/usuarios.json'; // Ruta relativa más robusta
+if (!file_exists($usuariosPath)) {
+    http_response_code(500);
+    echo json_encode(["error" => "El archivo de usuarios no existe"]);
+    exit;
+}
+$usuarios = json_decode(file_get_contents($usuariosPath), true);
 
 // Inicializar variable para verificar si se encuentran las credenciales correctas
 $usuarioValido = false;
@@ -20,16 +26,23 @@ foreach ($usuarios as $usuario) {
         $token = base64_encode(json_encode([
             "userId" => $usuario['usuario'],  // Usamos el nombre del usuario (puedes cambiarlo por un ID)
             "rol" => "user",  // Asignar rol, por ejemplo, 'user' o 'admin', según sea necesario
-            "exp" => time() + 36000 // Expiración en 1 hora
+            "exp" => time() + 3600 // Expiración en 1 hora
         ]));
 
-        // Devolver el token como respuesta
-        echo json_encode(["token" => $token]);
+        // Leer los datos de productos
+        $productosPath = __DIR__ . '/../json/productos.json'; // Ruta relativa más robusta
+        $productos = file_exists($productosPath) ? json_decode(file_get_contents($productosPath), true) : [];
+
+        // Devolver el token y los productos como respuesta
+        echo json_encode([
+            "token" => $token,
+            "tienda" => $productos
+        ]);
         exit;
     }
 }
 
-// Si no se encuentran las credenciales correctas, devolver un error 401 pepe
+// Si no se encuentran las credenciales correctas, devolver un error 401
 if (!$usuarioValido) {
     http_response_code(401);
     echo json_encode(["error" => "Credenciales inválidas"]);
