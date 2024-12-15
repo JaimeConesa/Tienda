@@ -29,9 +29,13 @@ foreach ($usuarios as $usuario) {
             "exp" => time() + 3600 // Expiración en 1 hora
         ]));
 
+        // Ejecutar productos.php para generar el archivo productos.json
+        $productosPath = __DIR__ . '/../php/productos.php';
+        include_once($productosPath);  // Esto ejecutará productos.php y generará productos.json
+
         // Leer los datos de productos
-        $productosPath = __DIR__ . '/../json/productos.json'; // Ruta relativa más robusta
-        $productos = file_exists($productosPath) ? json_decode(file_get_contents($productosPath), true) : [];
+        $productosPathJson = __DIR__ . '/../json/productos.json'; // Ruta al archivo JSON generado
+        $productos = file_exists($productosPathJson) ? json_decode(file_get_contents($productosPathJson), true) : [];
 
         // Devolver el token y los productos como respuesta
         echo json_encode([

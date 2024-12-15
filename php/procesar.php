@@ -5,18 +5,12 @@ header("Content-Type: application/json");
 $requestUri = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
 
-// Enrutamiento básico
-if ($requestUri === '/js/dashboard.js' && $method === 'GET') { 
-    include 'productos.php'; // Ruta relativa
-} elseif ($requestUri === '/js/login.js' && $method === 'POST') {
-    if (file_exists('login.php')) {
-        include 'login.php';
-    } else {
-        http_response_code(404);
-        echo json_encode(["error" => "Archivo no encontrado"]);
-    }
+// Enrutamiento simplificado
+// Si la solicitud es a 'login.php' (y no la de un archivo js), procesamos la solicitud de inicio de sesión
+if ($requestUri === '/Tienda/php/login.php' && $method === 'POST') {
+    include 'login.php'; // Procesar el login en el archivo login.php
 } else {
-    http_response_code(404);
+    http_response_code(404);  // Si la ruta no corresponde, devolvemos error 404
     echo json_encode(["error" => "Recurso no encontrado"]);
 }
 ?>

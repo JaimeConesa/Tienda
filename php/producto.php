@@ -71,6 +71,7 @@ $categoriasYProductos = [
     ],
 ];
 
+// Agregar los productos y categorías a la tienda
 foreach ($categoriasYProductos as $categoriaNombre => $productos) {
     $categoria = new Categoria($categoriaNombre);
     foreach ($productos as $producto) {
@@ -86,6 +87,30 @@ foreach ($categoriasYProductos as $categoriaNombre => $productos) {
     $tienda->agregarCategoria($categoria);
 }
 
-// Convertir el objeto de la tienda a JSON y mostrarlo
+// Ruta del archivo productos.json
+$productosPathJson = __DIR__ . '/../json/productos.json';
+
+// Verificar si el archivo existe
+if (file_exists($productosPathJson)) {
+    // Si el archivo existe, leer su contenido
+    $productosExistentes = json_decode(file_get_contents($productosPathJson), true);
+
+    // Aquí podrías actualizar los productos si es necesario
+    // Por ejemplo, podrías agregar productos nuevos sin eliminar los existentes
+    // Para este ejemplo, simplemente sobrescribimos todo, pero puedes ajustarlo según lo que necesites
+
+} else {
+    // Si no existe, creamos un arreglo vacío para inicializarlo
+    $productosExistentes = [];
+}
+
+// Agregar los productos de la tienda al archivo JSON
+$productosExistentes = $tienda; // Usamos el objeto tienda como datos a guardar
+
+// Guardar los productos actualizados en el archivo productos.json
+file_put_contents($productosPathJson, json_encode($productosExistentes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+
+// Devolver los datos de la tienda en formato JSON
 header('Content-Type: application/json');
 echo json_encode($tienda, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+?>
