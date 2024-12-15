@@ -5,7 +5,7 @@
     },
     {
         "nombre": "admin",
-        "contrasena": "securePass456"
+        "contrasena": "admin"
     },
     {
         "nombre": "usuario3",

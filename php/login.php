@@ -5,7 +5,7 @@ header("Content-Type: application/json");
 $data = json_decode(file_get_contents("php://input"), true);
 
 // Leer los usuarios desde el archivo JSON
-$usuarios = json_decode(file_get_contents("usuarios.json"), true);
+$usuarios = json_decode(file_get_contents("json/usuarios.json"), true);
 
 // Inicializar variable para verificar si se encuentran las credenciales correctas
 $usuarioValido = false;
@@ -20,7 +20,7 @@ foreach ($usuarios as $usuario) {
         $token = base64_encode(json_encode([
             "userId" => $usuario['usuario'],  // Usamos el nombre del usuario (puedes cambiarlo por un ID)
             "rol" => "user",  // Asignar rol, por ejemplo, 'user' o 'admin', según sea necesario
-            "exp" => time() + 3600 // Expiración en 1 hora
+            "exp" => time() + 36000 // Expiración en 1 hora
         ]));
 
         // Devolver el token como respuesta
