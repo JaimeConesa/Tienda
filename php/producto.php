@@ -13,18 +13,20 @@ class Variacion {
 class Producto {
     public $nombre;
     public $precio;
+    public $img;
     public $stock;
     public $variaciones = [];
 
-    public function __construct($nombre, $precio, $stock, $variaciones = []) {
+    public function __construct($nombre, $precio, $img, $stock, $variaciones = []) {
         $this->nombre = $nombre;
         $this->precio = $precio;
+        $this->img = $img;
         $this->stock = $stock;
         $this->variaciones = $variaciones;
     }
 }
 
-// Clase para las categorías de productos
+
 class Categoria {
     public $nombre;
     public $productos = [];
@@ -58,7 +60,7 @@ $tienda = new Tienda("Tienda de Modelos Gundam");
 // Crear las categorías y productos
 $categoriasYProductos = [
     "HG" => [
-        ["Gundam RX-78-2", 25.99, 10, ["Edición limitada", "Color especial"]],
+        ["Gundam RX-78-2", 25.99, "https://www.mechauniverse.es/productos/imagenes/img_2193_d5b1bd7d44286d4f61af793c9ec56c76_20.jpg", 10, ["Edición limitada", "Color especial"]],
         ["Gundam Barbatos Lupus", 22.50, 15, ["Armas adicionales"]],
     ],
     "MG" => [

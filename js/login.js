@@ -9,6 +9,7 @@ form.addEventListener('submit', async (event) => {
     // Capturar los datos del formulario
     const formData = new FormData(form);
     const data = {
+        action: 'login', // Asegúrate de incluir 'action'
         usuario: formData.get('usuario'),
         contraseña: formData.get('contraseña')
     };
@@ -20,7 +21,7 @@ form.addEventListener('submit', async (event) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data)
+            body: JSON.stringify(data) // Convertir datos a JSON
         });
 
         if (response.ok) {
@@ -44,6 +45,6 @@ form.addEventListener('submit', async (event) => {
         }
     } catch (error) {
         console.error('Error de conexión:', error);
-        alert('Error de conexión. Intente más tarde.');
+        alert('Error de conexión. Intentelo más tarde.');
     }
 });
